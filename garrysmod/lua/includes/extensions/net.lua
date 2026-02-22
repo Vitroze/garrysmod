@@ -153,6 +153,7 @@ function net.WriteTable( tab, seq )
 
 end
 
+local TIMEOUT = CreateConVar( "net_table_timeout", "120", FCVAR_ARCHIVE, "Time in seconds to wait before net.ReadTable() gives up on receiving a table." )
 function net.ReadTable( seq )
 
 	local tab = {}
@@ -167,7 +168,13 @@ function net.ReadTable( seq )
 
 	else
 
+		local startTime = SysTime()
 		while true do
+
+			if ( SysTime() - startTime > TIMEOUT:GetFloat() ) then
+				error( "net.ReadTable: Timeout while reading table." )
+				break
+			end
 
 			local k = net.ReadType()
 			if ( k == nil ) then break end
