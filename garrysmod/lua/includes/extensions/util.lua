@@ -114,9 +114,9 @@ function util.StringToType( str, typename )
 
 	if ( typename == "vector" )	then return Vector( str ) end
 	if ( typename == "angle" )	then return Angle( str ) end
-	if ( typename == "float" || typename == "number" )	then return tonumber( str ) end
+	if ( typename == "float" or typename == "number" )	then return tonumber( str ) end
 	if ( typename == "int" )	then local v = tonumber( str ) return v and math.Round( v ) or nil end
-	if ( typename == "bool" || typename == "boolean" )	then return tobool( str ) end
+	if ( typename == "bool" or typename == "boolean" )	then return tobool( str ) end
 	if ( typename == "string" )	then return tostring( str ) end
 	if ( typename == "entity" )	then return Entity( str ) end
 

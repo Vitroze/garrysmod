@@ -188,7 +188,7 @@ function TOOL:UpdateGhostLight( ent, ply )
 	if ( !IsValid( ent ) ) then return end
 
 	local trace = ply:GetEyeTrace()
-	if ( !trace.Hit || IsValid( trace.Entity ) && ( trace.Entity:IsPlayer() || trace.Entity:GetClass() == "gmod_light" ) ) then
+	if ( !trace.Hit or IsValid( trace.Entity ) && ( trace.Entity:IsPlayer() or trace.Entity:GetClass() == "gmod_light" ) ) then
 
 		ent:SetNoDraw( true )
 		return
@@ -204,7 +204,7 @@ end
 
 function TOOL:Think()
 
-	if ( !IsValid( self.GhostEntity ) || self.GhostEntity:GetModel() != "models/maxofs2d/light_tubular.mdl" ) then
+	if ( !IsValid( self.GhostEntity ) or self.GhostEntity:GetModel() != "models/maxofs2d/light_tubular.mdl" ) then
 		self:MakeGhostEntity( "models/maxofs2d/light_tubular.mdl", vector_origin, angle_zero )
 	end
 

@@ -139,7 +139,7 @@ function PANEL:PerformLayout()
 	local MarginY = math.Clamp( ( ScrH() - 768 ) * spawnmenu_border:GetFloat(), 25, 256 )
 
 	-- At this size we can't spare any space for emptiness
-	if ( ScrW() < 1024 || ScrH() < 768 ) then
+	if ( ScrW() < 1024 or ScrH() < 768 ) then
 		MarginX = 0
 		MarginY = 0
 	end
@@ -357,7 +357,7 @@ hook.Add( "GUIMouseReleased", "SpawnMenuOpenGUIMouseReleased", SpawnMenuOpenGUIM
 local function SpawnMenuLanguageChanged()
 	if ( !IsValid( g_SpawnMenu ) ) then return end
 
-	if ( g_SpawnMenu.m_UnsavedModifications || g_SpawnMenu:IsVisible() ) then
+	if ( g_SpawnMenu.m_UnsavedModifications or g_SpawnMenu:IsVisible() ) then
 		-- If there are unsaved modifications, or the spawn menu is somehow open, mark the spawn menu for recreation when the opportunity arises
 		g_SpawnMenu.m_NeedsLanguageRefresh = true
 	else

@@ -43,7 +43,7 @@ function TOOL:RightClick( trace, worldweld )
 	end
 
 	-- Check the model's validity
-	if ( !util.IsValidModel( model ) || !util.IsValidProp( model ) || !IsValidButtonModel( model ) ) then return false end
+	if ( !util.IsValidModel( model ) or !util.IsValidProp( model ) or !IsValidButtonModel( model ) ) then return false end
 	if ( !self:GetWeapon():CheckLimit( "buttons" ) ) then return false end
 
 	local Ang = trace.HitNormal:Angle()
@@ -138,7 +138,7 @@ function TOOL:UpdateGhostButton( ent, ply )
 	if ( !IsValid( ent ) ) then return end
 
 	local trace = ply:GetEyeTrace()
-	if ( !trace.Hit || IsValid( trace.Entity ) && ( trace.Entity:GetClass() == "gmod_button" || trace.Entity:IsPlayer() ) ) then
+	if ( !trace.Hit or IsValid( trace.Entity ) && ( trace.Entity:GetClass() == "gmod_button" or trace.Entity:IsPlayer() ) ) then
 		ent:SetNoDraw( true )
 		return
 	end
@@ -159,7 +159,7 @@ function TOOL:Think()
 	local mdl = self:GetClientInfo( "model" )
 	if ( !IsValidButtonModel( mdl ) ) then self:ReleaseGhostEntity() return end
 
-	if ( !IsValid( self.GhostEntity ) || self.GhostEntity:GetModel() != mdl:lower() ) then
+	if ( !IsValid( self.GhostEntity ) or self.GhostEntity:GetModel() != mdl:lower() ) then
 		self:MakeGhostEntity( mdl, vector_origin, angle_zero )
 	end
 

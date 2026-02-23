@@ -96,7 +96,7 @@ function GM:PlayerDeathThink( pl )
 
 	if ( pl.NextSpawnTime && pl.NextSpawnTime > CurTime() ) then return end
 
-	if ( pl:IsBot() || pl:KeyPressed( IN_ATTACK ) || pl:KeyPressed( IN_ATTACK2 ) || pl:KeyPressed( IN_JUMP ) ) then
+	if ( pl:IsBot() or pl:KeyPressed( IN_ATTACK ) or pl:KeyPressed( IN_ATTACK2 ) or pl:KeyPressed( IN_JUMP ) ) then
 
 		pl:Spawn()
 
@@ -149,7 +149,7 @@ function GM:PlayerDeath( ply, inflictor, attacker )
 	-- Convert the inflictor to the weapon that they're holding if we can.
 	-- This can be right or wrong with NPCs since combine can be holding a
 	-- pistol but kill you by hitting you with their arm.
-	if ( IsValid( inflictor ) && inflictor == attacker && ( inflictor:IsPlayer() || inflictor:IsNPC() ) ) then
+	if ( IsValid( inflictor ) && inflictor == attacker && ( inflictor:IsPlayer() or inflictor:IsNPC() ) ) then
 
 		inflictor = inflictor:GetActiveWeapon()
 		if ( !IsValid( inflictor ) ) then inflictor = attacker end
@@ -232,7 +232,7 @@ function GM:PlayerSpawn( pl, transiton )
 	-- If the player doesn't have a team in a TeamBased game
 	-- then spawn him as a spectator
 	--
-	if ( self.TeamBased && ( pl:Team() == TEAM_SPECTATOR || pl:Team() == TEAM_UNASSIGNED ) ) then
+	if ( self.TeamBased && ( pl:Team() == TEAM_SPECTATOR or pl:Team() == TEAM_UNASSIGNED ) ) then
 
 		self:PlayerSpawnAsSpectator( pl )
 		return
@@ -305,7 +305,7 @@ end
 function GM:PlayerSelectTeamSpawn( TeamID, pl )
 
 	local SpawnPoints = team.GetSpawnPoints( TeamID )
-	if ( !SpawnPoints || table.IsEmpty( SpawnPoints ) ) then return end
+	if ( !SpawnPoints or table.IsEmpty( SpawnPoints ) ) then return end
 
 	local ChosenSpawnPoint = nil
 
@@ -488,7 +488,7 @@ function GM:PlayerSelectSpawn( pl, transiton )
 		ChosenSpawnPoint = self.SpawnPoints[math.random( Count )]
 
 		if ( IsValid( ChosenSpawnPoint ) && ChosenSpawnPoint:IsInWorld() ) then
-			if ( ( ChosenSpawnPoint == pl:GetVar( "LastSpawnpoint" ) || ChosenSpawnPoint == self.LastSpawnPoint ) && Count > 1 ) then continue end
+			if ( ( ChosenSpawnPoint == pl:GetVar( "LastSpawnpoint" ) or ChosenSpawnPoint == self.LastSpawnPoint ) && Count > 1 ) then continue end
 
 			if ( hook.Call( "IsSpawnpointSuitable", GAMEMODE, pl, ChosenSpawnPoint, i == Count ) ) then
 
@@ -528,10 +528,10 @@ function GM:ScalePlayerDamage( ply, hitgroup, dmginfo )
 	end
 
 	-- Less damage if we're shot in the arms or legs
-	if ( hitgroup == HITGROUP_LEFTARM ||
-		 hitgroup == HITGROUP_RIGHTARM ||
-		 hitgroup == HITGROUP_LEFTLEG ||
-		 hitgroup == HITGROUP_RIGHTLEG ||
+	if ( hitgroup == HITGROUP_LEFTARM or
+		 hitgroup == HITGROUP_RIGHTARM or
+		 hitgroup == HITGROUP_LEFTLEG or
+		 hitgroup == HITGROUP_RIGHTLEG or
 		 hitgroup == HITGROUP_GEAR ) then
 
 		dmginfo:ScaleDamage( 0.25 )
@@ -687,7 +687,7 @@ function GM:PlayerJoinTeam( ply, teamid )
 	local iOldTeam = ply:Team()
 
 	if ( ply:Alive() ) then
-		if ( iOldTeam == TEAM_SPECTATOR || iOldTeam == TEAM_UNASSIGNED ) then
+		if ( iOldTeam == TEAM_SPECTATOR or iOldTeam == TEAM_UNASSIGNED ) then
 			ply:KillSilent()
 		else
 			ply:Kill()
@@ -779,7 +779,7 @@ end
 function GM:PlayerCanSeePlayersChat( strText, bTeamOnly, pListener, pSpeaker )
 
 	if ( bTeamOnly ) then
-		if ( !IsValid( pSpeaker ) || !IsValid( pListener ) ) then return false end
+		if ( !IsValid( pSpeaker ) or !IsValid( pListener ) ) then return false end
 		if ( pListener:Team() != pSpeaker:Team() ) then return false end
 	end
 
@@ -867,7 +867,7 @@ concommand.Add( "changeteam", function( pl, cmd, args ) hook.Call( "PlayerReques
 function GM:HandlePlayerArmorReduction( ply, dmginfo )
 
 	-- If no armor, or special damage types, bypass armor
-	if ( ply:Armor() <= 0 || bit.band( dmginfo:GetDamageType(), DMG_FALL + DMG_DROWN + DMG_POISON + DMG_RADIATION ) != 0 ) then return end
+	if ( ply:Armor() <= 0 or bit.band( dmginfo:GetDamageType(), DMG_FALL + DMG_DROWN + DMG_POISON + DMG_RADIATION ) != 0 ) then return end
 
 	local flBonus = 1.0 -- Each Point of Armor is worth 1/x points of health
 	local flRatio = 0.2 -- Armor Takes 80% of the damage

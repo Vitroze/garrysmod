@@ -89,7 +89,7 @@ local tblRow = vgui.RegisterTable( {
 
 		local Skin = self:GetSkin()
 		local editing = self.Inner:IsEditing()
-		local disabled = !self.Inner:IsEnabled() || !self:IsEnabled()
+		local disabled = !self.Inner:IsEnabled() or !self:IsEnabled()
 
 		if ( disabled ) then
 			local skinColor = Skin.Colours.Properties.Column_Disabled

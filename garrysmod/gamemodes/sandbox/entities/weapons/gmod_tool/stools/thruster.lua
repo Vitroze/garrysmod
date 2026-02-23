@@ -74,7 +74,7 @@ function TOOL:LeftClick( trace )
 		return true
 	end
 
-	if ( !util.IsValidModel( model ) || !util.IsValidProp( model ) || !IsValidThrusterModel( model ) ) then return false end
+	if ( !util.IsValidModel( model ) or !util.IsValidProp( model ) or !IsValidThrusterModel( model ) ) then return false end
 	if ( !self:GetWeapon():CheckLimit( "thrusters" ) ) then return false end
 
 	local Ang = trace.HitNormal:Angle()
@@ -187,7 +187,7 @@ function TOOL:UpdateGhostThruster( ent, ply )
 	if ( !IsValid( ent ) ) then return end
 
 	local trace = ply:GetEyeTrace()
-	if ( !trace.Hit || IsValid( trace.Entity ) && ( trace.Entity:GetClass() == "gmod_thruster" || trace.Entity:IsPlayer() ) ) then
+	if ( !trace.Hit or IsValid( trace.Entity ) && ( trace.Entity:GetClass() == "gmod_thruster" or trace.Entity:IsPlayer() ) ) then
 
 		ent:SetNoDraw( true )
 		return
@@ -210,7 +210,7 @@ function TOOL:Think()
 	local mdl = self:GetClientInfo( "model" )
 	if ( !IsValidThrusterModel( mdl ) ) then self:ReleaseGhostEntity() return end
 
-	if ( !IsValid( self.GhostEntity ) || self.GhostEntity:GetModel() != mdl:lower() ) then
+	if ( !IsValid( self.GhostEntity ) or self.GhostEntity:GetModel() != mdl:lower() ) then
 		self:MakeGhostEntity( mdl, vector_origin, angle_zero )
 	end
 

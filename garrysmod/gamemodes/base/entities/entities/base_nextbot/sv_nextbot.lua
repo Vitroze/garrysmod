@@ -63,7 +63,7 @@ function ENT:BodyUpdate()
 	-- This helper function does a lot of useful stuff for us.
 	-- It sets the bot's move_x move_y pose parameters, sets their animation speed relative to the ground speed, and calls FrameAdvance.
 	--
-	if ( act == ACT_RUN || act == ACT_WALK ) then
+	if ( act == ACT_RUN or act == ACT_WALK ) then
 
 		self:BodyMoveXY()
 
@@ -253,7 +253,7 @@ end
 function ENT:FindSpot( type, options )
 
 	local spots = self:FindSpots( options )
-	if ( !spots || #spots == 0 ) then return end
+	if ( !spots or #spots == 0 ) then return end
 
 	if ( type == "near" ) then
 

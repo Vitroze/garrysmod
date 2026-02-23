@@ -81,14 +81,14 @@ function PANEL:Add( strName )
 		if ( panel.AltLine ) then
 
 			if ( !panel:IsEnabled() ) then						return panel:SetTextStyleColor( skin.Colours.Category.LineAlt.Text_Disabled ) end
-			if ( panel.Depressed || panel.m_bSelected ) then	return panel:SetTextStyleColor( skin.Colours.Category.LineAlt.Text_Selected ) end
+			if ( panel.Depressed or panel.m_bSelected ) then	return panel:SetTextStyleColor( skin.Colours.Category.LineAlt.Text_Selected ) end
 			if ( panel.Hovered ) then							return panel:SetTextStyleColor( skin.Colours.Category.LineAlt.Text_Hover ) end
 			return panel:SetTextStyleColor( skin.Colours.Category.LineAlt.Text )
 
 		end
 
 		if ( !panel:IsEnabled() ) then						return panel:SetTextStyleColor( skin.Colours.Category.Line.Text_Disabled ) end
-		if ( panel.Depressed || panel.m_bSelected ) then	return panel:SetTextStyleColor( skin.Colours.Category.Line.Text_Selected ) end
+		if ( panel.Depressed or panel.m_bSelected ) then	return panel:SetTextStyleColor( skin.Colours.Category.Line.Text_Selected ) end
 		if ( panel.Hovered ) then							return panel:SetTextStyleColor( skin.Colours.Category.Line.Text_Hover ) end
 		return panel:SetTextStyleColor( skin.Colours.Category.Line.Text )
 
@@ -284,7 +284,7 @@ function PANEL:AnimSlide( anim, delta, data )
 	self:InvalidateParent()
 
 	if ( anim.Started ) then
-		if ( !IsValid( self.Contents ) && ( self.OldHeight || 0 ) < self.Header:GetTall() ) then
+		if ( !IsValid( self.Contents ) && ( self.OldHeight or 0 ) < self.Header:GetTall() ) then
 			-- We are not using self.Contents and our designated height is less
 			-- than the header size, something is clearly wrong, try to rectify
 			self.OldHeight = 0

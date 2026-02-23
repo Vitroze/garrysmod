@@ -34,7 +34,7 @@ function GM:HandlePlayerJumping( ply, velocity, plyTable )
 
 		end
 
-		if ( ( ply:WaterLevel() >= 2 ) || ( ( CurTime() - plyTable.m_flJumpStartTime ) > 0.2 && ply:OnGround() ) ) then
+		if ( ( ply:WaterLevel() >= 2 ) or ( ( CurTime() - plyTable.m_flJumpStartTime ) > 0.2 && ply:OnGround() ) ) then
 
 			plyTable.m_bJumping = false
 			plyTable.m_fGroundTime = nil
@@ -72,7 +72,7 @@ function GM:HandlePlayerNoClipping( ply, velocity, plyTable )
 
 	if ( !plyTable ) then plyTable = ply:GetTable() end
 
-	if ( ply:GetMoveType() != MOVETYPE_NOCLIP || ply:InVehicle() ) then
+	if ( ply:GetMoveType() != MOVETYPE_NOCLIP or ply:InVehicle() ) then
 
 		if ( plyTable.m_bWasNoclipping ) then
 
@@ -114,7 +114,7 @@ function GM:HandlePlayerSwimming( ply, velocity, plyTable )
 
 	if ( !plyTable ) then plyTable = ply:GetTable() end
 
-	if ( ply:WaterLevel() < 2 || ply:IsOnGround() ) then
+	if ( ply:WaterLevel() < 2 or ply:IsOnGround() ) then
 		plyTable.m_bInSwim = false
 		return false
 	end
@@ -141,7 +141,7 @@ function GM:HandlePlayerDriving( ply, plyTable )
 	if ( !plyTable ) then plyTable = ply:GetTable() end
 
 	-- The player must have a parent to be in a vehicle. If there's no parent, we are in the exit anim, so don't do sitting in 3rd person anymore
-	if ( !ply:InVehicle() || !IsValid( ply:GetParent() ) ) then return false end
+	if ( !ply:InVehicle() or !IsValid( ply:GetParent() ) ) then return false end
 
 	local pVehicle = ply:GetVehicle()
 
@@ -175,7 +175,7 @@ function GM:HandlePlayerDriving( ply, plyTable )
 		end
 	end
 
-	local use_anims = ( plyTable.CalcSeqOverride == ply:LookupSequence( "sit_rollercoaster" ) || plyTable.CalcSeqOverride == ply:LookupSequence( "sit" ) )
+	local use_anims = ( plyTable.CalcSeqOverride == ply:LookupSequence( "sit_rollercoaster" ) or plyTable.CalcSeqOverride == ply:LookupSequence( "sit" ) )
 	if ( use_anims && ply:GetAllowWeaponsInVehicle() && IsValid( ply:GetActiveWeapon() ) ) then
 		local holdtype = ply:GetActiveWeapon():GetHoldType()
 		if ( holdtype == "smg" ) then holdtype = "smg1" end
@@ -222,7 +222,7 @@ function GM:UpdateAnimation( ply, velocity, maxseqgroundspeed )
 		local Velocity = Vehicle:GetVelocity()
 		local fwd = Vehicle:GetUp()
 		local dp = fwd:Dot( Vector( 0, 0, 1 ) )
-		ply:SetPoseParameter( "vertical_velocity", ( dp < 0 && dp || 0 ) + fwd:Dot( Velocity ) * 0.005 )
+		ply:SetPoseParameter( "vertical_velocity", ( dp < 0 && dp or 0 ) + fwd:Dot( Velocity ) * 0.005 )
 
 		-- Pass the vehicles steer param down to the player
 		local steer = Vehicle:GetPoseParameter( "vehicle_steer" )
@@ -259,7 +259,7 @@ function GM:GrabEarAnimation( ply, plyTable )
 
 	if ( !plyTable ) then plyTable = ply:GetTable() end
 
-	plyTable.ChatGestureWeight = plyTable.ChatGestureWeight || 0
+	plyTable.ChatGestureWeight = plyTable.ChatGestureWeight or 0
 
 	-- Don't show this when we're playing a taunt!
 	if ( ply:IsPlayingTaunt() ) then return end
@@ -292,7 +292,7 @@ function GM:MouthMoveAnimation( ply )
 		ply:GetFlexIDByName( "right_mouth_drop" )
 	}
 
-	local weight = ply:IsSpeaking() && math.Clamp( ply:VoiceVolume() * 2, 0, 2 ) || 0
+	local weight = ply:IsSpeaking() && math.Clamp( ply:VoiceVolume() * 2, 0, 2 ) or 0
 
 	for k, v in ipairs( flexes ) do
 
@@ -310,11 +310,11 @@ function GM:CalcMainActivity( ply, velocity )
 
 	self:HandlePlayerLanding( ply, velocity, plyTable.m_bWasOnGround )
 
-	if !( self:HandlePlayerNoClipping( ply, velocity, plyTable ) ||
-		self:HandlePlayerDriving( ply, plyTable ) ||
-		self:HandlePlayerVaulting( ply, velocity, plyTable ) ||
-		self:HandlePlayerJumping( ply, velocity, plyTable ) ||
-		self:HandlePlayerSwimming( ply, velocity, plyTable ) ||
+	if !( self:HandlePlayerNoClipping( ply, velocity, plyTable ) or
+		self:HandlePlayerDriving( ply, plyTable ) or
+		self:HandlePlayerVaulting( ply, velocity, plyTable ) or
+		self:HandlePlayerJumping( ply, velocity, plyTable ) or
+		self:HandlePlayerSwimming( ply, velocity, plyTable ) or
 		self:HandlePlayerDucking( ply, velocity, plyTable ) ) then
 
 		local len2d = velocity:Length2DSqr()

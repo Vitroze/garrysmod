@@ -58,7 +58,7 @@ PANEL.SetColor = PANEL.SetTextColor
 
 function PANEL:GetColor()
 
-	return self.m_colText || self.m_colTextStyle
+	return self.m_colText or self.m_colTextStyle
 
 end
 
@@ -181,11 +181,11 @@ function PANEL:OnMousePressed( mousecode )
 	end
 
 	-- Do not do selections if playing is spawning things while moving
-	local isPlyMoving = LocalPlayer && IsValid( LocalPlayer() ) && ( LocalPlayer():KeyDown( IN_FORWARD ) || LocalPlayer():KeyDown( IN_BACK ) || LocalPlayer():KeyDown( IN_MOVELEFT ) || LocalPlayer():KeyDown( IN_MOVERIGHT ) )
+	local isPlyMoving = LocalPlayer && IsValid( LocalPlayer() ) && ( LocalPlayer():KeyDown( IN_FORWARD ) or LocalPlayer():KeyDown( IN_BACK ) or LocalPlayer():KeyDown( IN_MOVELEFT ) or LocalPlayer():KeyDown( IN_MOVERIGHT ) )
 
 	-- If we're selectable and have shift held down then go up
 	-- the parent until we find a selection canvas and start box selection
-	if ( self:IsSelectable() && mousecode == MOUSE_LEFT && ( input.IsShiftDown() || input.IsControlDown() ) && !isPlyMoving ) then
+	if ( self:IsSelectable() && mousecode == MOUSE_LEFT && ( input.IsShiftDown() or input.IsControlDown() ) && !isPlyMoving ) then
 
 		return self:StartBoxSelection()
 

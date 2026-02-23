@@ -73,7 +73,7 @@ function CCSpawn( ply, command, arguments )
 	modelName = modelName:gsub( "\\+", "/" )
 
 	-- Only models are allowed
-	if ( !modelName:StartsWith( "models/" ) || !modelName:EndsWith( ".mdl" ) ) then return end
+	if ( !modelName:StartsWith( "models/" ) or !modelName:EndsWith( ".mdl" ) ) then return end
 
 	-- Make sure the model is valid
 	if ( !util.IsValidModel( modelName ) ) then return end

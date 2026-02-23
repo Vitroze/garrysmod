@@ -35,7 +35,7 @@ end
 -----------------------------------------------------------]]
 function GM:HUDWeaponPickedUp( wep )
 
-	if ( !IsValid( LocalPlayer() ) || !LocalPlayer():Alive() ) then return end
+	if ( !IsValid( LocalPlayer() ) or !LocalPlayer():Alive() ) then return end
 	if ( !IsValid( wep ) ) then return end
 	if ( !isfunction( wep.GetPrintName ) ) then return end
 
@@ -50,7 +50,7 @@ end
 -----------------------------------------------------------]]
 function GM:HUDItemPickedUp( itemname )
 
-	if ( !IsValid( LocalPlayer() ) || !LocalPlayer():Alive() ) then return end
+	if ( !IsValid( LocalPlayer() ) or !LocalPlayer():Alive() ) then return end
 
 	local pickup = AddGenericPickup( self, "#" .. itemname )
 	pickup.color = Color( 180, 255, 180, 255 )
@@ -63,7 +63,7 @@ end
 -----------------------------------------------------------]]
 function GM:HUDAmmoPickedUp( itemname, amount )
 
-	if ( !IsValid( LocalPlayer() ) || !LocalPlayer():Alive() ) then return end
+	if ( !IsValid( LocalPlayer() ) or !LocalPlayer():Alive() ) then return end
 
 	-- Try to tack it onto an exisiting ammo pickup
 	if ( self.PickupHistory ) then

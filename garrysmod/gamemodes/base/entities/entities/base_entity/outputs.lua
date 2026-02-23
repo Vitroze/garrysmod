@@ -97,7 +97,7 @@ local function FireSingleOutput( output, this, activator, data )
 		output.times = output.times - 1
 	end
 
-	return ( output.times > 0 ) || ( output.times == -1 )
+	return ( output.times > 0 ) or ( output.times == -1 )
 
 end
 

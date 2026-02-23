@@ -238,7 +238,7 @@ end
 
 function IsInLoading()
 
-	if ( !IsValid( pnlLoading ) || !IsValid( pnlLoading.HTML ) ) then
+	if ( !IsValid( pnlLoading ) or !IsValid( pnlLoading.HTML ) ) then
 		return false
 	end
 
@@ -269,7 +269,7 @@ function GameDetails( servername, serverurl, mapname, maxplayers, steamid, gamem
 	serverurl = serverurl:Replace( "%s", steamid )
 	serverurl = serverurl:Replace( "%m", mapname )
 
-	if ( maxplayers > 1 && GetConVar( "cl_enable_loadingurl" ):GetBool() && ( serverurl:StartsWith( "http" ) || serverurl:StartsWith( "asset://" ) ) ) then
+	if ( maxplayers > 1 && GetConVar( "cl_enable_loadingurl" ):GetBool() && ( serverurl:StartsWith( "http" ) or serverurl:StartsWith( "asset://" ) ) ) then
 		pnlLoading:ShowURL( serverurl, true )
 	end
 

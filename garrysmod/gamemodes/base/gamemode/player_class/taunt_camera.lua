@@ -28,7 +28,7 @@ function TauntCamera()
 	--
 	CAM.ShouldDrawLocalPlayer = function( self, ply, on )
 
-		return on || OutLerp < 1
+		return on or OutLerp < 1
 
 	end
 
@@ -37,7 +37,7 @@ function TauntCamera()
 	--
 	CAM.CalcView = function( self, view, ply, on )
 
-		if ( !ply:Alive() || !IsValid( ply:GetViewEntity() ) || ply:GetViewEntity() != ply ) then on = false end
+		if ( !ply:Alive() or !IsValid( ply:GetViewEntity() ) or ply:GetViewEntity() != ply ) then on = false end
 
 		if ( WasOn != on ) then
 

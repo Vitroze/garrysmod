@@ -145,10 +145,10 @@ function SWEP:ShootBullet( damage, num_bullets, aimcone, ammo_type, force, trace
 	bullet.Src		= owner:GetShootPos()			-- Source
 	bullet.Dir		= owner:GetAimVector()			-- Dir of bullet
 	bullet.Spread	= Vector( aimcone, aimcone, 0 )		-- Aim Cone
-	bullet.Tracer	= tracer || 5						-- Show a tracer on every x bullets
-	bullet.Force	= force || 1						-- Amount of force to give to phys objects
+	bullet.Tracer	= tracer or 5						-- Show a tracer on every x bullets
+	bullet.Force	= force or 1						-- Amount of force to give to phys objects
 	bullet.Damage	= damage
-	bullet.AmmoType = ammo_type || self.Primary.Ammo
+	bullet.AmmoType = ammo_type or self.Primary.Ammo
 	bullet.Attacker = owner
 	bullet.Inflictor = self
 

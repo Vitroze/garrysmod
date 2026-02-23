@@ -43,7 +43,7 @@ hook.Add( "Think", "sandbox_queued_search", function()
 	GetAllFiles( unpack( call ) )
 	table.remove( queuedSearch, 1 )
 
-	if ( !timer.Exists( "search_models_update" ) || #queuedSearch < 1 ) then
+	if ( !timer.Exists( "search_models_update" ) or #queuedSearch < 1 ) then
 		timer.Create( "search_models_update", 1, 1, function() hook.Run( "SearchUpdate" ) end )
 	end
 
@@ -130,7 +130,7 @@ local function AddSearchProvider( listname, ctype, stype )
 			local name_c = v.ClassName
 			if ( !isstring( name ) && !isstring( name_c ) ) then continue end
 
-			if ( ( isstring( name ) && name:lower():find( str, nil, true ) ) || ( isstring( name_c ) && name_c:lower():find( str, nil, true ) ) ) then
+			if ( ( isstring( name ) && name:lower():find( str, nil, true ) ) or ( isstring( name_c ) && name_c:lower():find( str, nil, true ) ) ) then
 
 				local contentIconData = {
 					nicename = v.PrintName or v.ClassName,

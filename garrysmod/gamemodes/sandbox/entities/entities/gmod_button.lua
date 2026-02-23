@@ -102,7 +102,7 @@ function ENT:Think()
 	--
 	if ( SERVER && self:GetOn() && !self:GetIsToggle() ) then
 
-		if ( !IsValid( self.LastUser ) || !self.LastUser:KeyDown( IN_USE ) ) then
+		if ( !IsValid( self.LastUser ) or !self.LastUser:KeyDown( IN_USE ) ) then
 
 			self:Toggle( false, self.LastUser )
 			self.LastUser = nil

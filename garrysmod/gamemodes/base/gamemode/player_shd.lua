@@ -56,7 +56,7 @@ function GM:PlayerStepSoundTime( ply, iType, bWalking )
 	local fStepTime = 350
 	local fMaxSpeed = ply:GetMaxSpeed()
 
-	if ( iType == STEPSOUNDTIME_NORMAL || iType == STEPSOUNDTIME_WATER_FOOT ) then
+	if ( iType == STEPSOUNDTIME_NORMAL or iType == STEPSOUNDTIME_WATER_FOOT ) then
 
 		if ( fMaxSpeed <= 100 ) then
 			fStepTime = 400

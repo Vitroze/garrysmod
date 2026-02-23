@@ -24,7 +24,7 @@ function GM:HUDDrawTargetID()
 
 	local MouseX, MouseY = input.GetCursorPos()
 
-	if ( MouseX == 0 && MouseY == 0 || !vgui.CursorVisible() ) then
+	if ( MouseX == 0 && MouseY == 0 or !vgui.CursorVisible() ) then
 
 		MouseX = ScrW() / 2
 		MouseY = ScrH() / 2

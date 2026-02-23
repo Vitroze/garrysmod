@@ -182,7 +182,7 @@ end
 
 function GetColor( index )
 
-	local color = TeamInfo[index] && TeamInfo[index].Color || DefaultColor
+	local color = TeamInfo[index] && TeamInfo[index].Color or DefaultColor
 	return Color( color.r, color.g, color.b, color.a )
 
 end
@@ -209,7 +209,7 @@ function BestAutoJoinTeam()
 		if ( id != TEAM_SPECTATOR && id != TEAM_UNASSIGNED && id != TEAM_CONNECTING && tm.Joinable ) then
 
 			local PlayerCount = team.NumPlayers( id )
-			if ( PlayerCount < SmallestPlayers || (PlayerCount == SmallestPlayers && id < SmallestTeam ) ) then
+			if ( PlayerCount < SmallestPlayers or (PlayerCount == SmallestPlayers && id < SmallestTeam ) ) then
 				SmallestPlayers = PlayerCount
 				SmallestTeam = id
 			end

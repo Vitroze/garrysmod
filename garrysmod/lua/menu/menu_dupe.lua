@@ -44,7 +44,7 @@ end
 --
 concommand.Add( "dupe_publish", function( ply, cmd, args )
 
-	if ( !args[1] || !args[2] ) then return end
+	if ( !args[1] or !args[2] ) then return end
 	ws_dupe:Publish( args[1], args[2] )
 	gui.ActivateGameUI()
 

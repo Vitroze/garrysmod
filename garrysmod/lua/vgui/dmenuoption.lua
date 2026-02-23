@@ -158,7 +158,7 @@ end
 function PANEL:UpdateColours( skin )
 
 	-- If not hovered, but pressed down, choose a different color from the background!
-	if ( !self.Hovered && ( self:IsDown() || self.m_bSelected ) ) then return self:SetTextStyleColor( skin.Colours.Button.Hover ) end
+	if ( !self.Hovered && ( self:IsDown() or self.m_bSelected ) ) then return self:SetTextStyleColor( skin.Colours.Button.Hover ) end
 
 	-- Call the default action
 	return DButton.UpdateColours( self, skin )

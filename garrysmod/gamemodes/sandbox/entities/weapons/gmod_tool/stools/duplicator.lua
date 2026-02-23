@@ -207,7 +207,7 @@ if ( CLIENT ) then
 		CPanel:Button( "#tool.duplicator.showsaves", "dupe_show" )
 
 		if ( !tool && IsValid( LocalPlayer() ) ) then tool = LocalPlayer():GetTool( "duplicator" ) end
-		if ( !tool || !tool.CurrentDupeName ) then return end
+		if ( !tool or !tool.CurrentDupeName ) then return end
 
 		local nameLbl = CPanel:Help( language.GetPhrase( "duplicator.dupe_name" ) .. " " .. language.GetPhrase( tool.CurrentDupeName ) )
 		
@@ -301,7 +301,7 @@ if ( CLIENT ) then
 		end
 
 		local ply = LocalPlayer()
-		if ( !IsValid( ply ) || !ply.GetTool ) then return end
+		if ( !IsValid( ply ) or !ply.GetTool ) then return end
 
 		local tool = ply:GetTool( "duplicator" )
 		if ( !tool ) then return end
@@ -328,10 +328,10 @@ if ( CLIENT ) then
 
 	hook.Add( "PostDrawTranslucentRenderables", "DrawDuplicatorPreview", function ()
 		local ply = LocalPlayer()
-		if ( !IsValid( ply ) || !ply.GetTool ) then return end
+		if ( !IsValid( ply ) or !ply.GetTool ) then return end
 
 		local wep = ply:GetWeapon( "gmod_tool" )
-		if ( !IsValid( wep ) || ply:GetActiveWeapon() != wep || wep:GetMode() != "duplicator" ) then return end
+		if ( !IsValid( wep ) or ply:GetActiveWeapon() != wep or wep:GetMode() != "duplicator" ) then return end
 
 		local tool = ply:GetTool( "duplicator" )
 		if ( !tool ) then return end
@@ -345,7 +345,7 @@ if ( CLIENT ) then
 	function TOOL:DrawPreview()
 
 		local ply = LocalPlayer()
-		if ( !IsValid( ply ) || !self.CurrentDupeMins || !self.CurrentDupeMaxs ) then return end
+		if ( !IsValid( ply ) or !self.CurrentDupeMins or !self.CurrentDupeMaxs ) then return end
 
 		local tr = self:GetWeapon():DoToolTrace()
 		if ( !tr ) then return end

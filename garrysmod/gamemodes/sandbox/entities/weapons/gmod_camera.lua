@@ -73,7 +73,7 @@ function SWEP:Reload()
 
 	local owner = self:GetOwner()
 
-	if ( !owner:KeyDown( IN_ATTACK2 ) ) then self:SetZoom( owner:IsBot() && 75 || owner:GetInfoNum( "fov_desired", 75 ) ) end
+	if ( !owner:KeyDown( IN_ATTACK2 ) ) then self:SetZoom( owner:IsBot() && 75 or owner:GetInfoNum( "fov_desired", 75 ) ) end
 	self:SetRoll( 0 )
 
 end
@@ -220,7 +220,7 @@ function SWEP:FreezeMovement()
 	local owner = self:GetOwner()
 
 	-- Don't aim if we're holding the right mouse button
-	if ( owner:KeyDown( IN_ATTACK2 ) || owner:KeyReleased( IN_ATTACK2 ) ) then
+	if ( owner:KeyDown( IN_ATTACK2 ) or owner:KeyReleased( IN_ATTACK2 ) ) then
 		return true
 	end
 

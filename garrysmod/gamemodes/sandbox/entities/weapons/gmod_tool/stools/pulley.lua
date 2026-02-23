@@ -26,7 +26,7 @@ function TOOL:LeftClick( trace )
 	local iNum = self:NumObjects()
 
 	if ( IsValid( trace.Entity ) && trace.Entity:IsPlayer() ) then return false end
-	if ( !IsValid( trace.Entity ) && ( iNum == nil || iNum == 0 || iNum > 2 ) ) then return false end
+	if ( !IsValid( trace.Entity ) && ( iNum == nil or iNum == 0 or iNum > 2 ) ) then return false end
 
 	local Phys = trace.Entity:GetPhysicsObjectNum( trace.PhysicsBone )
 	self:SetObject( iNum + 1, trace.Entity, trace.HitPos, Phys, trace.PhysicsBone, trace.HitNormal )
@@ -91,7 +91,7 @@ end
 
 function TOOL:Reload( trace )
 
-	if ( !IsValid( trace.Entity ) || trace.Entity:IsPlayer() ) then return false end
+	if ( !IsValid( trace.Entity ) or trace.Entity:IsPlayer() ) then return false end
 	if ( CLIENT ) then return true end
 
 	return constraint.RemoveConstraints( trace.Entity, "Pulley" )

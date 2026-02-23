@@ -304,7 +304,7 @@ end
 -----------------------------------------------------------]]
 function GM:CalcVehicleView( Vehicle, ply, view )
 
-	if ( Vehicle.GetThirdPersonMode == nil || ply:GetViewEntity() != ply ) then
+	if ( Vehicle.GetThirdPersonMode == nil or ply:GetViewEntity() != ply ) then
 		-- This shouldn't ever happen.
 		return
 	end
@@ -601,7 +601,7 @@ function GM:PostDrawViewModel( vm, ply, wep, flags )
 
 	if ( !IsValid( wep ) ) then return false end
 
-	if ( wep.UseHands || !wep:IsScripted() ) then
+	if ( wep.UseHands or !wep:IsScripted() ) then
 
 		local hands = ply:GetHands()
 		if ( IsValid( hands ) && IsValid( hands:GetParent() ) ) then

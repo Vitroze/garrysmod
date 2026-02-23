@@ -72,7 +72,7 @@ function TOOL:LeftClick( trace )
 
 	end
 
-	if ( !util.IsValidModel( model ) || !util.IsValidProp( model ) || !IsValidHoverballModel( model ) ) then return false end
+	if ( !util.IsValidModel( model ) or !util.IsValidProp( model ) or !IsValidHoverballModel( model ) ) then return false end
 	if ( !self:GetWeapon():CheckLimit( "hoverballs" ) ) then return false end
 
 	local ball = MakeHoverBall( ply, trace.HitPos, key_d, key_u, speed, resistance, strength, model, nil, key_o )
@@ -182,7 +182,7 @@ function TOOL:UpdateGhostHoverball( ent, ply )
 	if ( !IsValid( ent ) ) then return end
 
 	local trace = ply:GetEyeTrace()
-	if ( !trace.Hit || IsValid( trace.Entity ) && ( trace.Entity:GetClass() == "gmod_hoverball" || trace.Entity:IsPlayer() ) ) then
+	if ( !trace.Hit or IsValid( trace.Entity ) && ( trace.Entity:GetClass() == "gmod_hoverball" or trace.Entity:IsPlayer() ) ) then
 
 		ent:SetNoDraw( true )
 		return
@@ -207,7 +207,7 @@ function TOOL:Think()
 	local mdl = self:GetClientInfo( "model" )
 	if ( !IsValidHoverballModel( mdl ) ) then self:ReleaseGhostEntity() return end
 
-	if ( !IsValid( self.GhostEntity ) || self.GhostEntity:GetModel() != mdl:lower() ) then
+	if ( !IsValid( self.GhostEntity ) or self.GhostEntity:GetModel() != mdl:lower() ) then
 		self:MakeGhostEntity( mdl, vector_origin, angle_zero )
 	end
 

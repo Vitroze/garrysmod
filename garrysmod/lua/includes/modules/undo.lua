@@ -398,7 +398,7 @@ local function CleanupInvalidUndos()
 		end
 
 		-- If the player has no undos left or they are all invalid, remove their entry
-		if ( not next( playerUndos ) || invalidUndos == allUndos ) then PlayerUndo[ uniqId ] = nil end
+		if ( not next( playerUndos ) or invalidUndos == allUndos ) then PlayerUndo[ uniqId ] = nil end
 	end
 end
 

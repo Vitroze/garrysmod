@@ -52,7 +52,7 @@ function GM:CanTool( ply, trace, mode, tool, button )
 
 	-- The jeep spazzes out when applying something
 	-- todo: Find out what it's reacting badly to and change it in _physprops
-	if ( mode == "physprop" && trace.Entity:IsValid() && ( trace.Entity:GetClass() == "prop_vehicle_jeep" || trace.Entity:GetClass() == "prop_vehicle_apc" ) ) then
+	if ( mode == "physprop" && trace.Entity:IsValid() && ( trace.Entity:GetClass() == "prop_vehicle_jeep" or trace.Entity:GetClass() == "prop_vehicle_apc" ) ) then
 		return false
 	end
 
@@ -138,7 +138,7 @@ function GM:PhysgunPickup( ply, ent )
 		if ( EntClass == "func_physbox" && ent:HasSpawnFlags( SF_PHYSBOX_MOTIONDISABLED ) ) then return false  end
 
 		-- If the physics object is frozen by the mapper, don't allow us to move it.
-		if ( string.find( EntClass, "prop_" ) && ( ent:HasSpawnFlags( SF_PHYSPROP_MOTIONDISABLED ) || ent:HasSpawnFlags( SF_PHYSPROP_PREVENT_PICKUP ) ) ) then return false end
+		if ( string.find( EntClass, "prop_" ) && ( ent:HasSpawnFlags( SF_PHYSPROP_MOTIONDISABLED ) or ent:HasSpawnFlags( SF_PHYSPROP_PREVENT_PICKUP ) ) ) then return false end
 
 		-- Allow physboxes, but get rid of all other func_'s (ladder etc)
 		if ( EntClass != "func_physbox" && string.find( EntClass, "func_" ) ) then return false end
@@ -185,10 +185,10 @@ end
 function GM:PlayerNoClip( pl, on )
 
 	-- Don't allow if player is in vehicle
-	if ( !IsValid( pl ) || pl:InVehicle() || !pl:Alive() ) then return false end
+	if ( !IsValid( pl ) or pl:InVehicle() or !pl:Alive() ) then return false end
 
 	-- Always allow to turn off noclip, and in single player
-	if ( !on || game.SinglePlayer() ) then return true end
+	if ( !on or game.SinglePlayer() ) then return true end
 
 	return GetConVarNumber( "sbox_noclip" ) > 0
 

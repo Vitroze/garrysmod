@@ -459,7 +459,7 @@ function meta:InstallDataTable()
 
 		-- Only allow setting variables that were marked as editable!
 		local k = keytable[ name ]
-		if ( !k || !k.Edit ) then return end
+		if ( !k or !k.Edit ) then return end
 
 		local v = util.StringToType( data, k.Type )
 		if ( v == nil ) then return end

@@ -771,7 +771,7 @@ function CreateConstraintFromTable( Constraint, EntityList, ply )
 
 	-- Hacky way to determine if the constraint is a rope one, since we have no better way
 	local function IsRopeConstraint( ent ) return ent and ent:GetClass() == "keyframe_rope" end
-	local isRope = IsRopeConstraint( const1 ) || IsRopeConstraint( const2 ) || IsRopeConstraint( const3 ) || IsRopeConstraint( const4 )
+	local isRope = IsRopeConstraint( const1 ) or IsRopeConstraint( const2 ) or IsRopeConstraint( const3 ) or IsRopeConstraint( const4 )
 	local constraintType = isRope and "ropeconstraints" or "constraints"
 
 	-- If in Sandbox, keep track of this.

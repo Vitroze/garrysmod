@@ -31,7 +31,7 @@ function PANEL:OpenGenericSpawnmenuRightClickMenu()
 
 		hook.Run( "SpawnmenuIconMenuOpen", menu, self, self:GetContentType() )
 
-		if ( !IsValid( self:GetParent() ) || !self:GetParent().GetReadOnly || !self:GetParent():GetReadOnly() ) then
+		if ( !IsValid( self:GetParent() ) or !self:GetParent().GetReadOnly or !self:GetParent():GetReadOnly() ) then
 			menu:AddSpacer()
 			menu:AddOption( "#spawnmenu.menu.delete", function()
 				self:Remove()
@@ -72,7 +72,7 @@ function PANEL:SetMaterial( name )
 	local mat = Material( name )
 
 	-- Look for the old style material
-	if ( !mat || mat:IsError() ) then
+	if ( !mat or mat:IsError() ) then
 
 		name = name:Replace( "entities/", "VGUI/entities/" )
 		name = name:Replace( ".png", "" )
@@ -81,7 +81,7 @@ function PANEL:SetMaterial( name )
 	end
 
 	-- Couldn't find any material.. just return
-	if ( !mat || mat:IsError() ) then
+	if ( !mat or mat:IsError() ) then
 		return
 	end
 
@@ -140,7 +140,7 @@ function PANEL:Paint( w, h )
 	surface.SetDrawColor( 255, 255, 255, 255 )
 
 	local drawText = false
-	if ( !dragndrop.IsDragging() && ( self:IsHovered() || self.Depressed || self:IsChildHovered() ) ) then
+	if ( !dragndrop.IsDragging() && ( self:IsHovered() or self.Depressed or self:IsChildHovered() ) ) then
 
 		surface.SetMaterial( matOverlay_Hovered )
 

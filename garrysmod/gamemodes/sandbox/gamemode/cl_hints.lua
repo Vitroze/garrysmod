@@ -24,7 +24,7 @@ end
 -- Throws a Hint to the screen
 --
 local function ThrowHint( name )
-	if ( !cl_showhints:GetBool() || engine.IsPlayingDemo() ) then return end
+	if ( !cl_showhints:GetBool() or engine.IsPlayingDemo() ) then return end
 
 	local text = language.GetPhrase( "Hint_" .. name )
 	text = string.gsub( text, "%%([^%%]+)%%", LookupBinding )

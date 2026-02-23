@@ -65,7 +65,7 @@ end
 --
 concommand.Add( "save_publish", function( ply, cmd, args )
 
-	if ( !args[1] || !args[2] ) then return end
+	if ( !args[1] or !args[2] ) then return end
 	ws_save:Publish( args[1], args[2] )
 	gui.ActivateGameUI()
 

@@ -86,7 +86,7 @@ end
 function PANEL:UpdateColours( skin )
 
 	if ( !self:IsEnabled() )					then return self:SetTextStyleColor( skin.Colours.Button.Disabled ) end
-	if ( self:IsDown() || self.m_bSelected )	then return self:SetTextStyleColor( skin.Colours.Button.Down ) end
+	if ( self:IsDown() or self.m_bSelected )	then return self:SetTextStyleColor( skin.Colours.Button.Down ) end
 	if ( self.Hovered )							then return self:SetTextStyleColor( skin.Colours.Button.Hover ) end
 
 	return self:SetTextStyleColor( skin.Colours.Button.Normal )
@@ -119,7 +119,7 @@ function PANEL:PerformLayoutImage()
 
 		-- For center alignments, reduce the inset of the image, so the text appears more centered visually
 		local alignment = self:GetContentAlignment()
-		if ( alignment == 8 || alignment == 5 || alignment == 2 ) then
+		if ( alignment == 8 or alignment == 5 or alignment == 2 ) then
 			self:SetTextInset( self.m_Image:GetWide() + 4, 0 )
 		else
 			self:SetTextInset( self.m_Image:GetWide() + 8, 0 )

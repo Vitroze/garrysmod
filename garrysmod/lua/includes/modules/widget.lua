@@ -48,7 +48,7 @@ local function UpdateHovered( pl )
 	util.TraceLine( trace )
 	widgets.Tracing = false
 
-	if ( !IsValid( tr.Entity ) || tr.Entity:IsWorld() ) then
+	if ( !IsValid( tr.Entity ) or tr.Entity:IsWorld() ) then
 		pl:SetHoveredWidget( NULL )
 		return
 	end

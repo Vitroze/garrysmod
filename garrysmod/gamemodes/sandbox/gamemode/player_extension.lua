@@ -74,7 +74,7 @@ function meta:GetCount( str, minus )
 
 	local key = self:UniqueID()
 	local tab = g_SBoxObjects[ key ]
-	if ( !tab || !tab[ str ] ) then
+	if ( !tab or !tab[ str ] ) then
 		self:SetNWInt( "Count." .. str, 0 )
 		return 0
 	end
@@ -133,7 +133,7 @@ end
 function meta:GetTool( mode )
 
 	local wep = self:GetWeapon( "gmod_tool" )
-	if ( !IsValid( wep ) || !wep.GetToolObject ) then return nil end
+	if ( !IsValid( wep ) or !wep.GetToolObject ) then return nil end
 
 	local tool = wep:GetToolObject( mode )
 	if ( !tool ) then return nil end

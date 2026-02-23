@@ -95,7 +95,7 @@ end )
 local function AutorefreshWeaponToSpawnmenu( weapon, name )
 
 	local swepTab = g_SpawnMenu.CreateMenu:GetCreationTab( "#spawnmenu.category.weapons" )
-	if ( !swepTab || !swepTab.ContentPanel || !IsValid( swepTab.Panel ) ) then return end
+	if ( !swepTab or !swepTab.ContentPanel or !IsValid( swepTab.Panel ) ) then return end
 
 	local tree = swepTab.ContentPanel.ContentNavBar.Tree
 	if ( !tree.Categories ) then return end
@@ -143,7 +143,7 @@ local function AutorefreshWeaponToSpawnmenu( weapon, name )
 end
 
 local function OnPreRegisterSWEP( weapon, name )
-	if ( !weapon.Spawnable || !g_SpawnMenu ) then return end
+	if ( !weapon.Spawnable or !g_SpawnMenu ) then return end
 
 	-- Gotta wait for the next frame because this hook is called just before the weapon is registered
 	timer.Simple( 0, function() AutorefreshWeaponToSpawnmenu( weapon, name ) end )

@@ -119,22 +119,22 @@ local PLAYER_LINE = {
 			return
 		end
 
-		if ( self.PName == nil || self.PName != self.Player:Nick() ) then
+		if ( self.PName == nil or self.PName != self.Player:Nick() ) then
 			self.PName = self.Player:Nick()
 			self.Name:SetText( self.PName )
 		end
 
-		if ( self.NumKills == nil || self.NumKills != self.Player:Frags() ) then
+		if ( self.NumKills == nil or self.NumKills != self.Player:Frags() ) then
 			self.NumKills = self.Player:Frags()
 			self.Kills:SetText( self.NumKills )
 		end
 
-		if ( self.NumDeaths == nil || self.NumDeaths != self.Player:Deaths() ) then
+		if ( self.NumDeaths == nil or self.NumDeaths != self.Player:Deaths() ) then
 			self.NumDeaths = self.Player:Deaths()
 			self.Deaths:SetText( self.NumDeaths )
 		end
 
-		if ( self.NumPing == nil || self.NumPing != self.Player:Ping() ) then
+		if ( self.NumPing == nil or self.NumPing != self.Player:Ping() ) then
 			self.NumPing = self.Player:Ping()
 			self.Ping:SetText( self.NumPing )
 		end
@@ -142,7 +142,7 @@ local PLAYER_LINE = {
 		--
 		-- Change the icon of the mute button based on state
 		--
-		if ( self.Muted == nil || self.Muted != self.Player:IsMuted() ) then
+		if ( self.Muted == nil or self.Muted != self.Player:IsMuted() ) then
 
 			self.Muted = self.Player:IsMuted()
 			if ( self.Muted ) then

@@ -30,7 +30,7 @@ constraintClasses[ "logic_collision_pair" ] = true
 hook.Add( "EntityRemoved", "Constraint Library - ConstraintRemoved", function( ent )
 
 	-- Remove this constraint from Entity.Constraints table of the constrained entities
-	if ( ent:IsConstraint() || constraintClasses[ ent:GetClass() ] ) then
+	if ( ent:IsConstraint() or constraintClasses[ ent:GetClass() ] ) then
 		for i = 1, 6 do
 			local entX = ent[ "Ent" .. i ]
 			if ( IsValid( entX ) and entX.Constraints ) then
@@ -376,7 +376,7 @@ function AddConstraintTable( ent, constraint, ent2, ent3, ent4 )
 
 	if ( !IsValid( constraint ) ) then return end
 
-	if ( IsValid( ent ) || ( ent && ent:IsWorld() ) ) then
+	if ( IsValid( ent ) or ( ent && ent:IsWorld() ) ) then
 		ent.Constraints = ent.Constraints or {}
 		table.insert( ent.Constraints, constraint )
 		ent:DeleteOnRemove( constraint )
@@ -396,7 +396,7 @@ function AddConstraintTableNoDelete( ent, constraint, ent2, ent3, ent4 )
 
 	if ( !IsValid( constraint ) ) then return end
 
-	if ( IsValid( ent ) || ( ent && ent:IsWorld() ) ) then
+	if ( IsValid( ent ) or ( ent && ent:IsWorld() ) ) then
 		ent.Constraints = ent.Constraints or {}
 		table.insert( ent.Constraints, constraint )
 	end
@@ -642,7 +642,7 @@ function Keepupright( Ent, Ang, Bone, angularlimit )
 	if ( !CanConstrain( Ent, Bone ) ) then return false end
 	-- This was once here. Is there any specific reason this was the case?
 	--if ( Ent:GetClass() != "prop_physics" && Ent:GetClass() != "prop_ragdoll" ) then return false end
-	if ( Ent:IsPlayer() || Ent:IsWorld() ) then return false end
+	if ( Ent:IsPlayer() or Ent:IsWorld() ) then return false end
 	if ( !angularlimit or angularlimit < 0 ) then return end
 
 	local Phys = Ent:GetPhysicsObjectNum( Bone )
@@ -980,7 +980,7 @@ local function MotorControl( pl, motor, onoff, dir )
 
 	local activate = false
 
-	if ( motor.toggle == 1 || motor.toggle == true ) then
+	if ( motor.toggle == 1 or motor.toggle == true ) then
 
 		-- Toggle mode, only do something when the key is pressed
 		-- if the motor is off, turn it on, and vice-versa.

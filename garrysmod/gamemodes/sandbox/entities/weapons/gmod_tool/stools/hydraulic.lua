@@ -40,7 +40,7 @@ function TOOL:LeftClick( trace )
 			return true
 		end
 
-		if ( ( !IsValid( self:GetEnt( 1 ) ) && !IsValid( self:GetEnt( 2 ) ) ) || iNum > 1 ) then
+		if ( ( !IsValid( self:GetEnt( 1 ) ) && !IsValid( self:GetEnt( 2 ) ) ) or iNum > 1 ) then
 			self:ClearObjects()
 			return true
 		end
@@ -212,7 +212,7 @@ end
 
 function TOOL:Reload( trace )
 
-	if ( !IsValid( trace.Entity ) || trace.Entity:IsPlayer() ) then return false end
+	if ( !IsValid( trace.Entity ) or trace.Entity:IsPlayer() ) then return false end
 	if ( CLIENT ) then return true end
 
 	return constraint.RemoveConstraints( trace.Entity, "Hydraulic" )

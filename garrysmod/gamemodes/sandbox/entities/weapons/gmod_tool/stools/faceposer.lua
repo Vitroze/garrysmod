@@ -174,7 +174,7 @@ function TOOL.BuildCPanel( CPanel, faceEntity )
 
 	CPanel:Help( "#tool.faceposer.desc" )
 
-	if ( !IsValid( faceEntity ) || faceEntity:GetFlexNum() == 0 ) then return end
+	if ( !IsValid( faceEntity ) or faceEntity:GetFlexNum() == 0 ) then return end
 
 	CPanel:ToolPresets( "face", ConVarsDefault )
 
@@ -447,7 +447,7 @@ function TOOL:DrawHUD()
 
 	local selected = self:FacePoserEntity()
 
-	if ( !IsValid( selected ) || selected:IsWorld() || selected:GetFlexNum() == 0 ) then return end
+	if ( !IsValid( selected ) or selected:IsWorld() or selected:GetFlexNum() == 0 ) then return end
 
 	local pos = selected:GetPos()
 	local eyeattachment = selected:LookupAttachment( "eyes" )

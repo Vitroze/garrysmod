@@ -266,7 +266,7 @@ end
 
 function TOOL:Reload( trace )
 
-	if ( !IsValid( trace.Entity ) || trace.Entity:IsPlayer() ) then return false end
+	if ( !IsValid( trace.Entity ) or trace.Entity:IsPlayer() ) then return false end
 	if ( CLIENT ) then return true end
 
 	self:ClearObjects()

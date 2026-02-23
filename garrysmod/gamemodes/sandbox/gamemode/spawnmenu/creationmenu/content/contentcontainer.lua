@@ -32,7 +32,7 @@ function PANEL:Init()
 
 		DPanel.OnMouseReleased( s, btn )
 
-		if ( btn != MOUSE_RIGHT || s:GetReadOnly() ) then return end
+		if ( btn != MOUSE_RIGHT or s:GetReadOnly() ) then return end
 
 		local menu = DermaMenu()
 		menu:AddOption( "#spawnmenu.newlabel", function()

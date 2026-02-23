@@ -42,7 +42,7 @@ function PANEL:AddModel( model, ConVars )
 	Icon:SetTooltip( model )
 	Icon.Model = model
 	Icon.Value = model
-	Icon.ConVars = ConVars || {}
+	Icon.ConVars = ConVars or {}
 
 	local ConVarName = self:ConVar()
 
@@ -117,7 +117,7 @@ function PANEL:ControlValues( kv )
 
 	self.BaseClass.ControlValues( self, kv )
 
-	self.Height = kv.height || 2
+	self.Height = kv.height or 2
 
 	-- Load the list of models from our keyvalues file
 	-- This is the old way
@@ -134,12 +134,12 @@ function PANEL:ControlValues( kv )
 	if ( kv.modelstable ) then
 		local tmp = {} -- HACK: Order by skin too.
 		for k, v in SortedPairsByMemberValue( kv.modelstable, "model" ) do
-			tmp[ k ] = v.model:lower() .. ( v.skin || 0 )
+			tmp[ k ] = v.model:lower() .. ( v.skin or 0 )
 		end
 
 		for k, v in SortedPairsByValue( tmp ) do
 			v = kv.modelstable[ k ]
-			self:AddModelEx( k, v.model, v.skin || 0 )
+			self:AddModelEx( k, v.model, v.skin or 0 )
 		end
 	end
 
@@ -171,7 +171,7 @@ end
 function PANEL:FindModelByValue( value )
 
 	for k, icon in pairs( self.Controls ) do
-		if ( icon.Model == value || icon.Value == value ) then return icon end
+		if ( icon.Model == value or icon.Value == value ) then return icon end
 	end
 
 end

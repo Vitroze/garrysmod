@@ -279,7 +279,7 @@ function ENT:SetRagdoll( ragdoll )
 			--
 			-- The root bone, we directly set the position of this one.
 			--
-			if ( k == 0 || !normalize ) then
+			if ( k == 0 or !normalize ) then
 
 				local new_position = center + v * scale
 				ragdoll:SetRagdollPos( k, new_position )

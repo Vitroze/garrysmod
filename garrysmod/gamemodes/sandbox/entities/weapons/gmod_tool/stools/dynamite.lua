@@ -21,7 +21,7 @@ end
 
 function TOOL:LeftClick( trace )
 
-	if ( !trace.HitPos || IsValid( trace.Entity ) && trace.Entity:IsPlayer() ) then return false end
+	if ( !trace.HitPos or IsValid( trace.Entity ) && trace.Entity:IsPlayer() ) then return false end
 	if ( CLIENT ) then return true end
 
 	local ply = self:GetOwner()
@@ -47,7 +47,7 @@ function TOOL:LeftClick( trace )
 		return true
 	end
 
-	if ( !util.IsValidModel( model ) || !util.IsValidProp( model ) || !IsValidDynamiteModel( model ) ) then return false end
+	if ( !util.IsValidModel( model ) or !util.IsValidProp( model ) or !IsValidDynamiteModel( model ) ) then return false end
 	if ( !self:GetWeapon():CheckLimit( "dynamite" ) ) then return false end
 
 	local dynamite = MakeDynamite( ply, trace.HitPos, angle_zero, group, damage, model, remove, delay )
@@ -130,7 +130,7 @@ function TOOL:UpdateGhostDynamite( ent, ply )
 	if ( !IsValid( ent ) ) then return end
 
 	local trace = ply:GetEyeTrace()
-	if ( !trace.Hit || IsValid( trace.Entity ) && ( trace.Entity:IsPlayer() || trace.Entity:GetClass() == "gmod_dynamite" ) ) then
+	if ( !trace.Hit or IsValid( trace.Entity ) && ( trace.Entity:IsPlayer() or trace.Entity:GetClass() == "gmod_dynamite" ) ) then
 		ent:SetNoDraw( true )
 		return
 	end
@@ -151,7 +151,7 @@ function TOOL:Think()
 	local mdl = self:GetClientInfo( "model" )
 	if ( !IsValidDynamiteModel( mdl ) ) then self:ReleaseGhostEntity() return end
 
-	if ( !IsValid( self.GhostEntity ) || self.GhostEntity:GetModel() != mdl:lower() ) then
+	if ( !IsValid( self.GhostEntity ) or self.GhostEntity:GetModel() != mdl:lower() ) then
 		self:MakeGhostEntity( mdl, vector_origin, angle_zero )
 	end
 

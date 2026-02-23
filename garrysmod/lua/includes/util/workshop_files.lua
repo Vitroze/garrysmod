@@ -217,14 +217,14 @@ function WorkshopFileBase( namespace, requiredtags )
 
 				steamworks.FileInfo( v, function( result )
 
-					if ( !result || result.error != nil ) then
+					if ( !result or result.error != nil ) then
 						-- Try to get the title from the GetAddons(), this probably could be done more efficiently
 						local title = "Offline addon"
-						for id, t in pairs( isUGC && engine.GetUserContent() || engine.GetAddons() ) do
+						for id, t in pairs( isUGC && engine.GetUserContent() or engine.GetAddons() ) do
 							if ( tonumber( v ) == tonumber( t.wsid ) ) then title = t.title break end
 						end
 
-						local jsonErr = util.TableToJSON( { title = title, description = "Failed to get addon info, error code " .. ( result && result.error || "unknown" ) }, false )
+						local jsonErr = util.TableToJSON( { title = title, description = "Failed to get addon info, error code " .. ( result && result.error or "unknown" ) }, false )
 						self.HTML:Call( namespace .. ".ReceiveFileInfo( \"" .. v .. "\", " .. jsonErr .. " )" )
 						return
 					end
@@ -235,7 +235,7 @@ function WorkshopFileBase( namespace, requiredtags )
 						result.description = string.Trim( result.description )
 					end
 
-					if ( result.owner && ( !result.ownername || result.ownername == "" || result.ownername == "[unknown]" ) ) then
+					if ( result.owner && ( !result.ownername or result.ownername == "" or result.ownername == "[unknown]" ) ) then
 						self:RetrieveUserName( result.owner, function( name )
 							result.ownername = name
 

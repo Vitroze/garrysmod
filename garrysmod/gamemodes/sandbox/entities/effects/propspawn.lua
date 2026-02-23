@@ -103,7 +103,7 @@ end
 function EFFECT:RenderParent( flags )
 
 	-- Do not draw some things during depth passes
-	local isDepthPass = ( bit.band( flags, STUDIO_SSAODEPTHTEXTURE ) != 0 || bit.band( flags, STUDIO_SHADOWDEPTHTEXTURE ) != 0 )
+	local isDepthPass = ( bit.band( flags, STUDIO_SSAODEPTHTEXTURE ) != 0 or bit.band( flags, STUDIO_SHADOWDEPTHTEXTURE ) != 0 )
 
 	if ( !IsValid( self ) ) then return end
 	if ( !IsValid( self.SpawnEffect ) ) then self.RenderOverride = nil return end

@@ -21,7 +21,7 @@ local function AddRecursive( pnl, folder, path, wildcard )
 	for k, v in ipairs( folders ) do
 
 		local added_rec = AddRecursive( pnl, folder .. v .. "/", path, wildcard )
-		added = added || added_rec
+		added = added or added_rec
 
 	end
 
@@ -72,7 +72,7 @@ end
 
 local function AddonsRightClick( self )
 
-	if ( !IsValid( self ) || !self.wsid || self.wsid == "0" ) then return end
+	if ( !IsValid( self ) or !self.wsid or self.wsid == "0" ) then return end
 
 	local menu = DermaMenu()
 	menu:AddOption( "#spawnmenu.openaddononworkshop", function()
@@ -95,7 +95,7 @@ local function RefreshAddons( MyNode )
 
 	for _, addon in SortedPairsByMemberValue( engine.GetAddons(), "title" ) do
 
-		if ( !addon.downloaded || !addon.mounted ) then continue end
+		if ( !addon.downloaded or !addon.mounted ) then continue end
 		if ( addon.models <= 0 ) then continue end
 
 		local models = MyNode:AddNode( addon.title .. " (" .. addon.models .. ")", "icon16/bricks.png" )

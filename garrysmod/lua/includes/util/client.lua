@@ -29,7 +29,7 @@ matproxy.Add( {
 		-- Less than ideal, but serves as an example
 		--[[local entities = {}
 		for k, v in pairs( ents.FindInSphere( ent:GetPos(), ent:BoundingRadius() ) ) do
-			if ( v == ent || v:GetMoveType() != MOVETYPE_VPHYSICS ) then continue end
+			if ( v == ent or v:GetMoveType() != MOVETYPE_VPHYSICS ) then continue end
 
 			table.insert( entities, v )
 		end

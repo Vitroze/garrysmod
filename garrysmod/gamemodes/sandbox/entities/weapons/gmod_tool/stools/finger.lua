@@ -14,7 +14,7 @@ local VarsOnHand = 15
 -- Returns true if it has TF2 hands
 local function HasTF2Hands( pEntity )
 	for k, v in pairs( list.Get( "FingerPoserSkeletons" ) ) do
-		if ( !v.hand_type || v.hand_type != "tf2" ) then continue end
+		if ( !v.hand_type or v.hand_type != "tf2" ) then continue end
 
 		local bone = pEntity:LookupBone( v.left_hand )
 		if ( bone ) then return true end
@@ -26,7 +26,7 @@ end
 -- Returns true if it has Portal 2 hands
 local function HasP2Hands( pEntity )
 	for k, v in pairs( list.Get( "FingerPoserSkeletons" ) ) do
-		if ( !v.hand_type || v.hand_type != "portal2" ) then continue end
+		if ( !v.hand_type or v.hand_type != "portal2" ) then continue end
 
 		local bone = pEntity:LookupBone( v.left_hand )
 		if ( bone ) then
@@ -427,11 +427,11 @@ function TOOL:GetHandPositions( pEntity )
 		if ( RightHand ) then break end
 	end
 
-	if ( !LeftHand || !RightHand ) then return false end
+	if ( !LeftHand or !RightHand ) then return false end
 
 	local LeftHandMatrix = pEntity:GetBoneMatrix( LeftHand )
 	local RightHandMatrix = pEntity:GetBoneMatrix( RightHand )
-	if ( !LeftHandMatrix || !RightHandMatrix ) then return false end
+	if ( !LeftHandMatrix or !RightHandMatrix ) then return false end
 
 	return LeftHandMatrix, RightHandMatrix
 
@@ -471,7 +471,7 @@ function TOOL:RightClick( trace )
 	local ent = trace.Entity
 	if ( IsValid( ent ) && ent:GetClass() == "prop_effect" ) then ent = ent.AttachedEntity end
 
-	if ( !IsValid( ent ) || ent:IsPlayer() ) then self:SetHand( NULL, 0 ) return true end
+	if ( !IsValid( ent ) or ent:IsPlayer() ) then self:SetHand( NULL, 0 ) return true end
 	--if ( ent:GetClass() != "prop_ragdoll" && ent:GetClass() != "prop_dynamic" && !ent:IsNPC() ) then return false end
 
 	if ( CLIENT ) then return false end
@@ -555,7 +555,7 @@ function TOOL:Think()
 
 	if ( self.NextUpdate && self.NextUpdate > CurTime() ) then return end
 
-	if ( CLIENT && ( OldHand != hand || OldEntity != selected || IsValid( selected ) != OldEntityValid ) ) then
+	if ( CLIENT && ( OldHand != hand or OldEntity != selected or IsValid( selected ) != OldEntityValid ) ) then
 
 		OldHand = hand
 		OldEntity = selected

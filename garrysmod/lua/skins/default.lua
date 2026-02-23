@@ -366,7 +366,7 @@ function SKIN:PaintButton( panel, w, h )
 
 	if ( !panel.m_bBackground ) then return end
 
-	if ( panel.Depressed || panel:IsSelected() || panel:GetToggle() ) then
+	if ( panel.Depressed or panel:IsSelected() or panel:GetToggle() ) then
 		return self.tex.Button_Down( 0, 0, w, h )
 	end
 
@@ -474,7 +474,7 @@ function SKIN:PaintTextEntry( panel, w, h )
 	end
 
 	-- Hack on a hack, but this produces the most close appearance to what it will actually look if text was actually there
-	if ( panel.GetPlaceholderText && panel.GetPlaceholderColor && panel:GetPlaceholderText() && panel:GetPlaceholderText():Trim() != "" && panel:GetPlaceholderColor() && ( !panel:GetText() || panel:GetText() == "" ) ) then
+	if ( panel.GetPlaceholderText && panel.GetPlaceholderColor && panel:GetPlaceholderText() && panel:GetPlaceholderText():Trim() != "" && panel:GetPlaceholderColor() && ( !panel:GetText() or panel:GetText() == "" ) ) then
 
 		local oldText = panel:GetText()
 
@@ -526,7 +526,7 @@ function SKIN:PaintMenuOption( panel, w, h )
 		surface.DrawRect( 0, 0, w, h )
 	end
 
-	if ( panel.m_bBackground && panel:IsEnabled() && ( panel.Hovered || panel.Highlight ) ) then
+	if ( panel.m_bBackground && panel:IsEnabled() && ( panel.Hovered or panel.Highlight ) ) then
 		self.tex.MenuBG_Hover( 0, 0, w, h )
 	end
 
@@ -607,7 +607,7 @@ function SKIN:PaintWindowCloseButton( panel, w, h )
 		return self.tex.Window.Close( 0, 0, w, h, Color( 255, 255, 255, 50 ) )
 	end
 
-	if ( panel.Depressed || panel:IsSelected() ) then
+	if ( panel.Depressed or panel:IsSelected() ) then
 		return self.tex.Window.Close_Down( 0, 0, w, h )
 	end
 
@@ -627,7 +627,7 @@ function SKIN:PaintWindowMinimizeButton( panel, w, h )
 		return self.tex.Window.Mini( 0, 0, w, h, Color( 255, 255, 255, 50 ) )
 	end
 
-	if ( panel.Depressed || panel:IsSelected() ) then
+	if ( panel.Depressed or panel:IsSelected() ) then
 		return self.tex.Window.Mini_Down( 0, 0, w, h )
 	end
 
@@ -647,7 +647,7 @@ function SKIN:PaintWindowMaximizeButton( panel, w, h )
 		return self.tex.Window.Maxi( 0, 0, w, h, Color( 255, 255, 255, 50 ) )
 	end
 
-	if ( panel.Depressed || panel:IsSelected() ) then
+	if ( panel.Depressed or panel:IsSelected() ) then
 		return self.tex.Window.Maxi_Down( 0, 0, w, h )
 	end
 
@@ -705,7 +705,7 @@ function SKIN:PaintButtonDown( panel, w, h )
 
 	if ( !panel.m_bBackground ) then return end
 
-	if ( panel.Depressed || panel:IsSelected() ) then
+	if ( panel.Depressed or panel:IsSelected() ) then
 		return self.tex.Scroller.DownButton_Down( 0, 0, w, h )
 	end
 
@@ -728,7 +728,7 @@ function SKIN:PaintButtonUp( panel, w, h )
 
 	if ( !panel.m_bBackground ) then return end
 
-	if ( panel.Depressed || panel:IsSelected() ) then
+	if ( panel.Depressed or panel:IsSelected() ) then
 		return self.tex.Scroller.UpButton_Down( 0, 0, w, h )
 	end
 
@@ -751,7 +751,7 @@ function SKIN:PaintButtonLeft( panel, w, h )
 
 	if ( !panel.m_bBackground ) then return end
 
-	if ( panel.Depressed || panel:IsSelected() ) then
+	if ( panel.Depressed or panel:IsSelected() ) then
 		return self.tex.Scroller.LeftButton_Down( 0, 0, w, h )
 	end
 
@@ -774,7 +774,7 @@ function SKIN:PaintButtonRight( panel, w, h )
 
 	if ( !panel.m_bBackground ) then return end
 
-	if ( panel.Depressed || panel:IsSelected() ) then
+	if ( panel.Depressed or panel:IsSelected() ) then
 		return self.tex.Scroller.RightButton_Down( 0, 0, w, h )
 	end
 
@@ -799,7 +799,7 @@ function SKIN:PaintComboDownArrow( panel, w, h )
 		return self.tex.Input.ComboBox.Button.Disabled( 0, 0, w, h )
 	end
 
-	if ( panel.ComboBox.Depressed || panel.ComboBox:IsMenuOpen() ) then
+	if ( panel.ComboBox.Depressed or panel.ComboBox:IsMenuOpen() ) then
 		return self.tex.Input.ComboBox.Button.Down( 0, 0, w, h )
 	end
 
@@ -820,7 +820,7 @@ function SKIN:PaintComboBox( panel, w, h )
 		return self.tex.Input.ComboBox.Disabled( 0, 0, w, h )
 	end
 
-	if ( panel.Depressed || panel:IsMenuOpen() ) then
+	if ( panel.Depressed or panel:IsMenuOpen() ) then
 		return self.tex.Input.ComboBox.Down( 0, 0, w, h )
 	end
 
@@ -1003,7 +1003,7 @@ function SKIN:PaintCategoryButton( panel, w, h )
 		local skinColor
 
 		if ( !panel:IsEnabled() ) then skinColor = self.Colours.Category.LineAlt.Button_Disabled
-		elseif ( panel.Depressed || panel.m_bSelected ) then skinColor = self.Colours.Category.LineAlt.Button_Selected
+		elseif ( panel.Depressed or panel.m_bSelected ) then skinColor = self.Colours.Category.LineAlt.Button_Selected
 		elseif ( panel.Hovered ) then skinColor = self.Colours.Category.LineAlt.Button_Hover
 		else skinColor = self.Colours.Category.LineAlt.Button end
 
@@ -1012,7 +1012,7 @@ function SKIN:PaintCategoryButton( panel, w, h )
 		local skinColor
 
 		if ( !panel:IsEnabled() ) then skinColor = self.Colours.Category.Line.Button_Disabled
-		elseif ( panel.Depressed || panel.m_bSelected ) then skinColor = self.Colours.Category.Line.Button_Selected
+		elseif ( panel.Depressed or panel.m_bSelected ) then skinColor = self.Colours.Category.Line.Button_Selected
 		elseif ( panel.Hovered ) then skinColor = self.Colours.Category.Line.Button_Hover
 		else skinColor = self.Colours.Category.Line.Button end
 

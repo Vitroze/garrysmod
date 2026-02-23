@@ -151,7 +151,7 @@ local function Update()
 
 	for k, Panel in pairs( Notices ) do
 
-		if ( !IsValid( Panel ) || Panel:KillSelf() ) then Notices[ k ] = nil end
+		if ( !IsValid( Panel ) or Panel:KillSelf() ) then Notices[ k ] = nil end
 
 	end
 

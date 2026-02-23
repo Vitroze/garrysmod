@@ -17,7 +17,7 @@ local matRecording = nil
 local drawicon = CreateConVar( "gm_demo_icon", 1, FCVAR_ARCHIVE + FCVAR_DONTRECORD, "If set to 1, display a 'RECORDING' icon during gm_demo." )
 hook.Add( "HUDPaint", "DrawRecordingIcon", function()
 
-	if ( !engine.IsRecordingDemo() || !drawicon:GetBool() ) then return end
+	if ( !engine.IsRecordingDemo() or !drawicon:GetBool() ) then return end
 
 	if ( !matRecording ) then
 		matRecording = Material( "gmod/recording.png" )

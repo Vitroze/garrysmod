@@ -179,7 +179,7 @@ function TOOL:UpdateGhostBalloon( ent, ply )
 	if ( !IsValid( ent ) ) then return end
 
 	local trace = ply:GetEyeTrace()
-	if ( !trace.Hit || IsValid( trace.Entity ) && ( trace.Entity:IsPlayer() || trace.Entity:GetClass() == "gmod_balloon" ) ) then
+	if ( !trace.Hit or IsValid( trace.Entity ) && ( trace.Entity:IsPlayer() or trace.Entity:GetClass() == "gmod_balloon" ) ) then
 		ent:SetNoDraw( true )
 		return
 	end
@@ -202,7 +202,7 @@ end
 
 function TOOL:Think()
 
-	if ( !IsValid( self.GhostEntity ) || self.GhostEntity.model != self:GetClientInfo( "model" ) ) then
+	if ( !IsValid( self.GhostEntity ) or self.GhostEntity.model != self:GetClientInfo( "model" ) ) then
 
 		local modeltable = list.GetEntry( "BalloonModels", self:GetClientInfo( "model" ) )
 		if ( !modeltable ) then self:ReleaseGhostEntity() return end
