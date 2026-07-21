@@ -561,7 +561,7 @@ function GM:CalcViewModelView( wep, vm, oldEyePos, oldEyeAng, eyePos, eyeAng )
 	-- Controls the position of all viewmodels
 	local func = wep.GetViewModelPosition
 	if ( func ) then
-		local pos, ang = func( wep, eyePos, eyeAng )
+		local pos, ang = func( wep, eyePos * 1, eyeAng * 1 )
 		vm_origin = pos or vm_origin
 		vm_angles = ang or vm_angles
 	end
@@ -569,7 +569,7 @@ function GM:CalcViewModelView( wep, vm, oldEyePos, oldEyeAng, eyePos, eyeAng )
 	-- Controls the position of individual viewmodels
 	func = wep.CalcViewModelView
 	if ( func ) then
-		local pos, ang = func( wep, vm, oldEyePos, oldEyeAng, eyePos, eyeAng )
+		local pos, ang = func( wep, vm, oldEyePos * 1, oldEyeAng * 1, eyePos * 1, eyeAng * 1 )
 		vm_origin = pos or vm_origin
 		vm_angles = ang or vm_angles
 	end
