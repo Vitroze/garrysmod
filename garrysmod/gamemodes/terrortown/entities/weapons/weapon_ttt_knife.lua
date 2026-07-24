@@ -62,11 +62,11 @@ function SWEP:PrimaryAttack()
    local kmins = Vector(1,1,1) * -10
    local kmaxs = Vector(1,1,1) * 10
 
-   local tr = util.TraceHull({start=spos, endpos=sdest, filter=self:GetOwner(), mask=MASK_SHOT_HULL, mins=kmins, maxs=kmaxs})
+   local tr = util.TraceHull({start = spos, endpos = sdest, filter = self:GetOwner(), mask = MASK_SHOT_HULL, mins = kmins, maxs = kmaxs})
 
    -- Hull might hit environment stuff that line does not hit
    if not IsValid(tr.Entity) then
-      tr = util.TraceLine({start=spos, endpos=sdest, filter=self:GetOwner(), mask=MASK_SHOT_HULL})
+      tr = util.TraceLine({start = spos, endpos = sdest, filter = self:GetOwner(), mask = MASK_SHOT_HULL})
    end
 
    local hitEnt = tr.Entity
@@ -93,25 +93,23 @@ function SWEP:PrimaryAttack()
    end
 
 
-   if SERVER and tr.Hit and tr.HitNonWorld and IsValid(hitEnt) then
-      if hitEnt:IsPlayer() then
-         -- knife damage is never karma'd, so don't need to take that into
-         -- account we do want to avoid rounding error strangeness caused by
-         -- other damage scaling, causing a death when we don't expect one, so
-         -- when the target's health is close to kill-point we just kill
-         if hitEnt:Health() < (self.Primary.Damage + 10) then
-            self:StabKill(tr, spos, sdest)
-         else
-            local dmg = DamageInfo()
-            dmg:SetDamage(self.Primary.Damage)
-            dmg:SetAttacker(self:GetOwner())
-            dmg:SetInflictor(self)
-            dmg:SetDamageForce(self:GetOwner():GetAimVector() * 5)
-            dmg:SetDamagePosition(self:GetOwner():GetPos())
-            dmg:SetDamageType(DMG_SLASH)
+   if SERVER and tr.Hit and tr.HitNonWorld and IsValid(hitEnt) and hitEnt:IsPlayer() then
+      -- knife damage is never karma'd, so don't need to take that into
+      -- account we do want to avoid rounding error strangeness caused by
+      -- other damage scaling, causing a death when we don't expect one, so
+      -- when the target's health is close to kill-point we just kill
+      if hitEnt:Health() < (self.Primary.Damage + 10) then
+         self:StabKill(tr, spos, sdest)
+      else
+         local dmg = DamageInfo()
+         dmg:SetDamage(self.Primary.Damage)
+         dmg:SetAttacker(self:GetOwner())
+         dmg:SetInflictor(self)
+         dmg:SetDamageForce(self:GetOwner():GetAimVector() * 5)
+         dmg:SetDamagePosition(self:GetOwner():GetPos())
+         dmg:SetDamageType(DMG_SLASH)
 
-            hitEnt:DispatchTraceAttack(dmg, spos + (self:GetOwner():GetAimVector() * 3), sdest)
-         end
+         hitEnt:DispatchTraceAttack(dmg, spos + (self:GetOwner():GetAimVector() * 3), sdest)
       end
    end
 
@@ -134,12 +132,12 @@ function SWEP:StabKill(tr, spos, sdest)
    -- hope our effect_fn trace has more luck
 
    -- first a straight up line trace to see if we aimed nicely
-   local retr = util.TraceLine({start=spos, endpos=sdest, filter=self:GetOwner(), mask=MASK_SHOT_HULL})
+   local retr = util.TraceLine({start = spos, endpos = sdest, filter = self:GetOwner(), mask = MASK_SHOT_HULL})
 
    -- if that fails, just trace to worldcenter so we have SOMETHING
    if retr.Entity != target then
       local center = target:LocalToWorld(target:OBBCenter())
-      retr = util.TraceLine({start=spos, endpos=center, filter=self:GetOwner(), mask=MASK_SHOT_HULL})
+      retr = util.TraceLine({start = spos, endpos = center, filter = self:GetOwner(), mask = MASK_SHOT_HULL})
    end
 
 
@@ -151,41 +149,40 @@ function SWEP:StabKill(tr, spos, sdest)
    ang:RotateAroundAxis(ang:Right(), -90)
    pos = pos - (ang:Forward() * 7)
 
-   local prints = self.fingerprints
    local ignore = self:GetOwner()
 
    target.effect_fn = function(rag)
-                         -- we might find a better location
-                         local rtr = util.TraceLine({start=pos, endpos=pos + norm * 40, filter=ignore, mask=MASK_SHOT_HULL})
+      -- we might find a better location
+      local rtr = util.TraceLine({start = pos, endpos = pos + norm * 40, filter = ignore, mask = MASK_SHOT_HULL})
 
-                         if IsValid(rtr.Entity) and rtr.Entity == rag then
-                            bone = rtr.PhysicsBone
-                            pos = rtr.HitPos
-                            ang = Angle(-28,0,0) + rtr.Normal:Angle()
-                            ang:RotateAroundAxis(ang:Right(), -90)
-                            pos = pos - (ang:Forward() * 10)
+      if IsValid(rtr.Entity) and rtr.Entity == rag then
+         bone = rtr.PhysicsBone
+         pos = rtr.HitPos
+         ang = Angle(-28,0,0) + rtr.Normal:Angle()
+         ang:RotateAroundAxis(ang:Right(), -90)
+         pos = pos - (ang:Forward() * 10)
 
-                         end
+      end
 
-                         local knife = ents.Create("prop_physics")
-                         knife:SetModel("models/weapons/w_knife_t.mdl")
-                         knife:SetPos(pos)
-                         knife:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
-                         knife:SetAngles(ang)
-                         knife.CanPickup = false
+      local knife = ents.Create("prop_physics")
+      knife:SetModel("models/weapons/w_knife_t.mdl")
+      knife:SetPos(pos)
+      knife:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
+      knife:SetAngles(ang)
+      knife.CanPickup = false
 
-                         knife:Spawn()
+      knife:Spawn()
 
-                         local phys = knife:GetPhysicsObject()
-                         if IsValid(phys) then
-                            phys:EnableCollisions(false)
-                         end
+      local phys = knife:GetPhysicsObject()
+      if IsValid(phys) then
+         phys:EnableCollisions(false)
+      end
 
-                         constraint.Weld(rag, knife, bone, 0, 0, true)
+      constraint.Weld(rag, knife, bone, 0, 0, true)
 
-                         -- need to close over knife in order to keep a valid ref to it
-                         rag:CallOnRemove("ttt_knife_cleanup", function() SafeRemoveEntity(knife) end)
-                      end
+      -- need to close over knife in order to keep a valid ref to it
+      rag:CallOnRemove("ttt_knife_cleanup", function() SafeRemoveEntity(knife) end)
+   end
 
 
    -- seems the spos and sdest are purely for effects/forces?

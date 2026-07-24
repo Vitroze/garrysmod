@@ -13,7 +13,7 @@ AccessorFunc(ENT, "dietime", "DieTime")
 AccessorFuncDT(ENT, "burning", "Burning")
 
 ENT.firechild = nil
-ENT.fireparams = {size=120, growth=1}
+ENT.fireparams = {size = 120, growth = 1}
 
 ENT.dietime = 0
 ENT.next_hurt = 0
@@ -50,7 +50,7 @@ function ENT:Initialize()
 end
 
 function StartFires(pos, tr, num, lifetime, explode, dmgowner)
-   for i=1, num do
+   for i = 1, num do
       local ang = Angle(-math.Rand(0, 180), math.Rand(0, 360), math.Rand(0, 360))
 
       local flame = ents.Create("ttt_flame")
@@ -86,7 +86,7 @@ function SpawnFire(pos, size, attack, fuel, owner, parent)
    fire:SetPos(pos)
    --no glow + delete when out + start on + last forever
    fire:SetKeyValue("spawnflags", tostring(128 + 32 + 4 + 2 + 1))
-   fire:SetKeyValue("firesize", (size * math.Rand(0.7, 1.1)))
+   fire:SetKeyValue("firesize", size * math.Rand(0.7, 1.1))
    fire:SetKeyValue("fireattack", attack)
    fire:SetKeyValue("health", fuel)
    fire:SetKeyValue("damagescale", "-10") -- only neg. value prevents dmg
@@ -100,12 +100,9 @@ end
 -- greatly simplified version of SDK's game_shard/gamerules.cpp:RadiusDamage
 -- does no block checking, radius should be very small
 function RadiusDamage(dmginfo, pos, radius, inflictor)
-   local tr = nil
    for k, vic in ipairs(ents.FindInSphere(pos, radius)) do
-      if IsValid(vic) and inflictor:Visible(vic) then
-         if vic:IsPlayer() and vic:Alive() and vic:Team() == TEAM_TERROR then
-            vic:TakeDamageInfo(dmginfo)
-         end
+      if IsValid(vic) and inflictor:Visible(vic) and vic:IsPlayer() and vic:Alive() and vic:Team() == TEAM_TERROR then
+         vic:TakeDamageInfo(dmginfo)
       end
    end
 end

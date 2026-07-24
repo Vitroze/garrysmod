@@ -240,7 +240,7 @@ local dummify = {
 }
 
 for k, cls in pairs(dummify) do
-   scripted_ents.Register({Type="point", IsWeaponDummy=true}, cls)
+   scripted_ents.Register({Type = "point", IsWeaponDummy = true}, cls)
 end
 
 -- Cache this, every ttt_random_weapon uses it in its Init
@@ -360,7 +360,7 @@ local function PlaceWeapon(swep, pos, ang)
 
    -- Create some associated ammo (if any)
    if ent.AmmoEnt then
-      for i=1, math.random(0,3) do
+      for i = 1, math.random(0,3) do
          local ammo = ents.Create(ent.AmmoEnt)
 
          if IsValid(ammo) then
