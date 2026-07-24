@@ -109,9 +109,9 @@ function AccessorFuncDT(tbl, varname, name)
 end
 
 function util.PaintDown(start, effname, ignore)
-   local btr = util.TraceLine({start=start, endpos=(start + Vector(0,0,-256)), filter=ignore, mask=MASK_SOLID})
+   local btr = util.TraceLine({start = start, endpos = start + Vector(0,0,-256), filter = ignore, mask = MASK_SOLID})
 
-   util.Decal(effname, btr.HitPos+btr.HitNormal, btr.HitPos-btr.HitNormal)
+   util.Decal(effname, btr.HitPos + btr.HitNormal, btr.HitPos-btr.HitNormal)
 end
 
 local function DoBleed(ent)
@@ -275,7 +275,7 @@ function Dev(level, ...)
       -- table.concat does not tostring, derp
 
       local params = {...}
-      for i=1,#params do
+      for i = 1, #params do
          Msg(" " .. tostring(params[i]))
       end
 
@@ -299,11 +299,11 @@ end
 
 if CLIENT then
    local healthcolors = {
-      healthy = Color(0, 255, 0, 255),
-      hurt    = Color(170, 230, 10, 255),
-      wounded = Color(230, 215, 10, 255),
-      badwound= Color(255, 140, 0, 255),
-      death   = Color(255, 0, 0, 255)
+      healthy  = Color(0, 255, 0, 255),
+      hurt     = Color(170, 230, 10, 255),
+      wounded  = Color(230, 215, 10, 255),
+      badwound = Color(255, 140, 0, 255),
+      death    = Color(255, 0, 0, 255)
    }
 
    function util.HealthToString(health, maxhealth)

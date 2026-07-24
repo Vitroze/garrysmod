@@ -4,7 +4,6 @@
 local math = math
 local table = table
 local player = player
-local timer = timer
 local pairs = pairs
 
 CreateConVar("ttt_bots_are_spectators", "0", FCVAR_ARCHIVE)
@@ -168,7 +167,7 @@ local function PointsAroundSpawn(spwn)
    if not IsValid(spwn) then return {} end
    local pos = spwn:GetPos()
 
-   local w, h = 36, 72 -- bit roomier than player hull
+   local w = 36 -- bit roomier than player hull
 
    -- all rigged positions
    -- could be done without typing them out, but would take about as much time
@@ -399,7 +398,7 @@ function GM:KeyRelease(ply, key)
                return true
             end
          elseif tr.Entity.player_ragdoll then
-            CORPSE.ShowSearch(ply, tr.Entity, (ply:KeyDown(IN_WALK) or ply:KeyDownLast(IN_WALK)))
+            CORPSE.ShowSearch(ply, tr.Entity, ply:KeyDown(IN_WALK) or ply:KeyDownLast(IN_WALK))
             return true
          end
       end
@@ -821,11 +820,9 @@ function GM:OnPlayerHitGround(ply, in_water, on_floater, speed)
 
          -- if the faller was pushed, that person should get attrib
          local push = ply.was_pushed
-         if push then
-            -- TODO: move push time checking stuff into fn?
-            if math.max(push.t or 0, push.hurt or 0) > CurTime() - 4 then
-               att = push.att
-            end
+         -- TODO: move push time checking stuff into fn?
+         if push and math.max(push.t or 0, push.hurt or 0) > (CurTime() - 4) then
+            att = push.att
          end
 
          local dmg = DamageInfo()
@@ -992,19 +989,15 @@ function GM:PlayerTakeDamage(ent, infl, att, amount, dmginfo)
    end
 
    -- scale phys damage caused by props
-   if dmginfo:IsDamageType(DMG_CRUSH) and IsValid(att) then
+   -- player falling on player, or player hurt by prop?
+   if dmginfo:IsDamageType(DMG_CRUSH) and IsValid(att) and not dmginfo:IsDamageType(DMG_PHYSGUN) then
+      -- this is prop-based physics damage
+      dmginfo:ScaleDamage(0.25)
 
-      -- player falling on player, or player hurt by prop?
-      if not dmginfo:IsDamageType(DMG_PHYSGUN) then
-
-         -- this is prop-based physics damage
-         dmginfo:ScaleDamage(0.25)
-
-         -- if the prop is held, no damage
-         if IsValid(infl) and IsValid(infl:GetOwner()) and infl:GetOwner():IsPlayer() then
-            dmginfo:ScaleDamage(0)
-            dmginfo:SetDamage(0)
-         end
+      -- if the prop is held, no damage
+      if IsValid(infl) and IsValid(infl:GetOwner()) and infl:GetOwner():IsPlayer() then
+         dmginfo:ScaleDamage(0)
+         dmginfo:SetDamage(0)
       end
    end
 
@@ -1013,7 +1006,7 @@ function GM:PlayerTakeDamage(ent, infl, att, amount, dmginfo)
       local datt = dmginfo:GetAttacker()
       if (not IsValid(datt)) or (not datt:IsPlayer()) then
          local ignite = ent.ignite_info
-         if IsValid(ignite.att) and IsValid(ignite.infl)then
+         if IsValid(ignite.att) and IsValid(ignite.infl) then
             dmginfo:SetAttacker(ignite.att)
             dmginfo:SetInflictor(ignite.infl)
          end

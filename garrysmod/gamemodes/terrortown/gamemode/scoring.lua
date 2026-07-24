@@ -59,10 +59,11 @@ function SCORE:HandleKill(victim, attacker, dmginfo)
    if not (IsValid(victim) and victim:IsPlayer()) then return end
 
    local e = {
-      id=EVENT_KILL,
-      att={ni="", sid64=-1, tr=false},
-      vic={ni=victim:Nick(), sid64=victim:SteamID64(), tr=false},
-      dmg=CopyDmg(dmginfo)}
+      id = EVENT_KILL,
+      att = { ni = "", sid64 = -1, tr = false},
+      vic = { ni = victim:Nick(), sid64 = victim:SteamID64(), tr = false},
+      dmg = CopyDmg(dmginfo)
+   }
 
    e.dmg.h = victim.was_headshot
 

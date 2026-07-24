@@ -26,7 +26,7 @@ function GM:PlayerCanPickupWeapon(ply, wep)
       return false
    end
 
-   local tr = util.TraceEntity({start=wep:GetPos(), endpos=ply:GetShootPos(), mask=MASK_SOLID}, wep)
+   local tr = util.TraceEntity({start = wep:GetPos(), endpos = ply:GetShootPos(), mask = MASK_SOLID}, wep)
    if tr.Fraction == 1.0 or tr.Entity == ply then
       wep:SetPos(ply:GetShootPos())
    end
@@ -39,9 +39,9 @@ local loadout_weapons = nil
 local function GetLoadoutWeapons(r)
    if not loadout_weapons then
       local tbl = {
-         [ROLE_INNOCENT] = {},
-         [ROLE_TRAITOR]  = {},
-         [ROLE_DETECTIVE]= {}
+         [ROLE_INNOCENT]  = {},
+         [ROLE_TRAITOR]   = {},
+         [ROLE_DETECTIVE] = {}
       }
 
       for k, w in pairs(weapons.GetList()) do
@@ -379,11 +379,9 @@ local function OrderEquipment(ply, cmd, args)
       end
 
       -- ownership check and finalise
-      if id and EQUIP_NONE < id then
-         if not ply:HasEquipmentItem(id) then
-            ply:GiveEquipmentItem(id)
-            received = true
-         end
+      if id and EQUIP_NONE < id and not ply:HasEquipmentItem(id) then
+         ply:GiveEquipmentItem(id)
+         received = true
       end
    elseif swep_table then
       -- weapon whitelist check
@@ -469,7 +467,7 @@ local function TransferCredits(ply, cmd, args)
    local credits = tonumber(args[2])
    if sid64 and credits then
       local target = player.GetBySteamID64(sid64)
-      if (not IsValid(target)) or (not target:IsActiveSpecial()) or (target:GetRole() ~= ply:GetRole()) or (target == ply) then
+      if (not IsValid(target)) or (not target:IsActiveSpecial()) or (target:GetRole() != ply:GetRole()) or (target == ply) then
          LANG.Msg(ply, "xfer_no_recip")
          return
       end
@@ -485,7 +483,7 @@ local function TransferCredits(ply, cmd, args)
       ply:SubtractCredits(credits)
       target:AddCredits(credits)
 
-      LANG.Msg(ply, "xfer_success", {player=target:Nick()})
+      LANG.Msg(ply, "xfer_success", {player = target:Nick()})
       LANG.Msg(target, "xfer_received", {player = ply:Nick(), num = credits})
    end
 end
@@ -493,12 +491,10 @@ concommand.Add("ttt_transfer_credits", TransferCredits)
 
 -- Protect against non-TTT weapons that may break the HUD
 function GM:WeaponEquip(wep)
-   if IsValid(wep) then
-      -- only remove if they lack critical stuff
-      if not wep.Kind then
-         wep:Remove()
-         ErrorNoHalt("Equipped weapon " .. wep:GetClass() .. " is not compatible with TTT\n")
-      end
+   -- only remove if they lack critical stuff
+   if IsValid(wep) and not wep.Kind then
+      wep:Remove()
+      ErrorNoHalt("Equipped weapon " .. wep:GetClass() .. " is not compatible with TTT\n")
    end
 end
 
